@@ -18,7 +18,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Cyfrin/contracts/FundMezkSync.sol": "PriceConverter"
+			"Cyfrin/contracts/PriceConverter.sol": "PriceConverter"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -40,12 +40,12 @@
 				"dweb:/ipfs/QmaG6vz6W6iEUBsbHSBob5mdcitYxWjoygxREHpsJHfWrS"
 			]
 		},
-		"Cyfrin/contracts/FundMezkSync.sol": {
-			"keccak256": "0x0a9f52ed106df777b952fbcd90564637ecbecb3547f968b9a63fa77dfabca496",
+		"Cyfrin/contracts/PriceConverter.sol": {
+			"keccak256": "0x8d7e02adfffcda8d820b9fabaa97f28befa7c88fc0b9782a84dddb76bb2fb2ed",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://24c0557054d4673a3798382fbf0076b204eefaa6775c29edfe37f994d028023a",
-				"dweb:/ipfs/QmSje6F9qPHniyA1xqHW6iPuovzyL6kdXEcUW9jQw7JLMr"
+				"bzz-raw://9ce982c5da75ca9a4ea3efe1f9c781bf9d414e312c7cf92e30827b920a2d7339",
+				"dweb:/ipfs/Qmd3iFaiqcgYhCsA1SCW1n8rMzW7kbVFBvwfikUA9ymyRe"
 			]
 		}
 	},
