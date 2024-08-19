@@ -5,7 +5,7 @@ pragma solidity ^0.8.18;
 import {PriceConverter} from "./PriceConverter.sol";
 
 // we can use custom error instead of require for more gas optimization and this is the most updated one
-error NotOwner();
+error FundMe_NotOwner();
 
 contract FundMe{
     using PriceConverter for uint256;
@@ -68,7 +68,7 @@ contract FundMe{
     modifier onlyOwner() {
         // for  withdraw we have to varify it is the owner
         // require(msg.sender == i_owner, "Must be owner!");
-        if(msg.sender != i_owner) { revert NotOwner();} // This is more gas efficient
+        if(msg.sender != i_owner) { revert FundMe_NotOwner();} // This is more gas efficient
         _;
     }
 
