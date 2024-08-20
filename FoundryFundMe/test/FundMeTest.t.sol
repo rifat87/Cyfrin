@@ -2,20 +2,34 @@
 
 pragma solidity ^0.8.18;
 
-import "ds-test/test.sol";
+// import {assertEq} from "../lib/ds-test/src/test.sol";
+import "../lib/ds-test/src/test.sol";
+
 import {Test, console} from "forge-std/Test.sol";
-contract FundMeTest {
+import {FundMe} from "../src/FundMe.sol";
+contract FundMeTest is Test{
     // Here the setUp() function always runs first
 
     /* Context: In Foundry, assertEq is commonly used in tests to assert that two values are equal. However, this function is part of the DSTest library, which provides various assertion functions for testing purposes.*/
-    uint256 number = 1;
+    FundMe fundMe;
     function setUp() external {
-        number = 2;
+        fundMe = new FundMe();
     }
 
-    function testDemo() public {
-        console.log("Hey, Rifat");
-        console.log(number);
-        assertEq(number, 2);
+    function testMinimumDollarIsFive() public {
+        assertEq(fundMe.MINIMUM_USD(), 5e18);
+
+        // console.log("Hey, Rifat");
+        // console.log(number);
+        // console.log(number);
+        // assertEq(number, 2);
+    }
+
+    function testOwnerIsMsgSender() public {
+        console.log(fundMe.i_owner());
+        console.log(". this is msg sender", msg.sender);
+        // assertEq(fundMe.i_owner(), msg.sender); this will not same because, the fundMe.i_owner() is actually our local device and the msg.sender is the acutal owner who actually transacts.
+
+        assertEq(fundMe.i_owner(), address(this)); // Here the this will check with the current address.
     }
 }
