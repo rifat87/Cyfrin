@@ -7,13 +7,17 @@ import "../lib/ds-test/src/test.sol";
 
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
+import {DeployFundMe} from "../script/DeployFundMe.s.sol";
+
 contract FundMeTest is Test{
     // Here the setUp() function always runs first
 
     /* Context: In Foundry, assertEq is commonly used in tests to assert that two values are equal. However, this function is part of the DSTest library, which provides various assertion functions for testing purposes.*/
     FundMe fundMe;
     function setUp() external {
-        fundMe = new FundMe();
+        // fundMe = new FundMe(0x694AA1769357215DE4FAC081bf309aDC325306);
+        DeployFundMe deployFundMe = new DeployFundMe();
+        fundMe = deployFundMe.run();
     }
 
     function testMinimumDollarIsFive() public {
@@ -30,7 +34,7 @@ contract FundMeTest is Test{
         console.log(". this is msg sender", msg.sender);
         // assertEq(fundMe.i_owner(), msg.sender); this will not same because, the fundMe.i_owner() is actually our local device and the msg.sender is the acutal owner who actually transacts.
 
-        assertEq(fundMe.i_owner(), address(this)); // Here the this will check with the current address.
+        assertEq(fundMe.i_owner(), msg.sender); // Here the this will check with the current address.
     }
 
     //What can we do to work with addresses outside out system?
