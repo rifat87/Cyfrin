@@ -38,7 +38,7 @@ contract FundMeTest is Test{
     //      - Testing a specific part of our code
     // 2. Integration
     //      - Testing our code works with other parts of our code
-    // 3. Forced
+    // 3. Forked
     //      - Testing our code on a simulated real environment
     // 4. staging 
     //      - Testing our code in a real environment that is not prod
@@ -47,4 +47,7 @@ contract FundMeTest is Test{
         console.log("The version is: ", version);
         assertEq(version, 4);
     }
+
+    //Modular deployments
+    //Modular testing
 }
