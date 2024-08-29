@@ -14,7 +14,7 @@ contract FundMe {
     address[] private s_funders;
 
     // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address private /* immutable */ i_owner;
+    address private immutable  i_owner;
     uint256 public constant MINIMUM_USD = 5e18;
     AggregatorV3Interface private s_priceFeed;
 
@@ -37,6 +37,19 @@ contract FundMe {
         // require(msg.sender == owner);
         if (msg.sender != i_owner) revert FundMe_NotOwner();
         _;
+    }
+
+    //cheaper withdraw, beacuse everytime use get index value of s_funders it calls from storage which cost 100 gas price, instead we can use memory which will cost 3
+
+    function cheaperWithdraw() public onlyOwner {
+        uint256 fundersLength = s_funders.length;
+        for (uint funderIndex = 0; funderIndex < fundersLength; funderIndex++) {
+            address funder = s_funders[funderIndex];
+            s_addressToAmountFunded[funder] = 0;
+        }
+        s_funders = new address[](0);
+        (bool callSuccess,) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
     }
 
     function withdraw() public onlyOwner {

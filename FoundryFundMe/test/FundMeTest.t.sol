@@ -105,14 +105,14 @@ contract FundMeTest is Test{
         uint256 startingFundMeBalance = address(fundMe).balance;
 
         // Act
-        uint256 gasStart = gasleft(); // 100
-        vm.txGasPrice(GAS_PRICE);
-        vm.prank(fundMe.getOwner()); // c:200
+        // uint256 gasStart = gasleft(); // 100
+        // vm.txGasPrice(GAS_PRICE);
+        vm.prank(fundMe.getOwner()); // c:200 
         fundMe.withdraw(); // should have spent gass
 
-        uint256 gasEnd = gasleft();
-        uint256 gasUsed = (gasStart-gasEnd) * tx.gasprice;
-        console.log(gasUsed);
+        // uint256 gasEnd = gasleft();
+        // uint256 gasUsed = (gasStart-gasEnd) * tx.gasprice;
+        // console.log(gasUsed);
 
         //Assert
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
@@ -145,6 +145,37 @@ contract FundMeTest is Test{
         // Act
         vm.startPrank(fundMe.getOwner());
         fundMe.withdraw();
+        vm.stopPrank();
+
+        // Assert
+        assert(address(fundMe).balance == 0);
+        assert(startingFundMeBalance + startingOwnerBalance == fundMe.getOwner().balance);
+    }
+
+    function testWithdrawFromMultipleFundersCheaper() public funded {
+        // Arrange
+        
+        uint160 numberOfFunders = 10;
+        uint160 startingFunderIndex = 1;
+
+        for (uint160 i = startingFunderIndex; i < numberOfFunders; i++) {
+            // vm.prank new address
+            // vm.deal new address
+            //address()
+            hoax(address(i), SEND_VALUE);  // don't know what is hoax
+
+            fundMe.fund{value: SEND_VALUE}();
+            // fud the fundMe
+
+        }
+
+        uint256 startingOwnerBalance = fundMe.getOwner().balance;
+        uint256 startingFundMeBalance = address(fundMe).balance;
+
+
+        // Act
+        vm.startPrank(fundMe.getOwner());
+        fundMe.cheaperWithdraw();
         vm.stopPrank();
 
         // Assert
