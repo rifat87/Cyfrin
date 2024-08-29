@@ -10,3 +10,6 @@
 [submodule "FoundryFundMe/lib/ds-test"]
 	path = FoundryFundMe/lib/ds-test
 	url = https://github.com/dapphub/ds-test
+[submodule "FoundryFundMe/lib/foundry-devops"]
+	path = FoundryFundMe/lib/foundry-devops
+	url = https://github.com/Cyfrin/foundry-devops
