@@ -3,11 +3,11 @@
 pragma solidity ^0.8.18;
 
 // import {assertEq} from "../lib/ds-test/src/test.sol";
-import "../lib/ds-test/src/test.sol";
+import "../../lib/ds-test/src/test.sol";
 
 import {Test, console} from "forge-std/Test.sol";
-import {FundMe} from "../src/FundMe.sol";
-import {DeployFundMe} from "../script/DeployFundMe.s.sol";
+import {FundMe} from "../../src/FundMe.sol";
+import {DeployFundMe} from "../../script/DeployFundMe.s.sol";
 
 contract FundMeTest is Test{
     // Here the setUp() function always runs first
