@@ -3,6 +3,8 @@
 3. Programatic verification 
 4. Push to GitHub
 
+//Makefiles allow us to create shortcuts for commands we arae going to commonly use.
+
 ## Foundry
 
 **Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
