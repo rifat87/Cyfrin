@@ -12,4 +12,4 @@
 	url = https://github.com/dapphub/ds-test
 [submodule "FoundryFundMe/lib/foundry-devops"]
 	path = FoundryFundMe/lib/foundry-devops
-	url = https://github.com/Cyfrin/foundry-devops
+	url = https://github.com/cyfrin/foundry-devops
