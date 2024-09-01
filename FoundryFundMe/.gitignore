@@ -13,8 +13,8 @@ docs/
 # Dotenv file
 .env
 
-broadcast/
-lib/
+# broadcast/
+# lib/
 
 .DS_Store
 zkout/
