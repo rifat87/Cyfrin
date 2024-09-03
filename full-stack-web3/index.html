@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Full Stack Web3</title>
+</head>
+
+<body>
+    <h1>Web3</h1>
+    <script>
+        let accounts = [];
+
+        async function connect() {
+            if (typeof window.ethereum !== "undefined") {
+                accounts = await window.ethereum.request({
+                    "method": "eth_requestAccounts",
+                    "params": []
+                });
+            }
+        }
+
+        // async function metamaskVersion() {
+        //     const version = await window.ethereum.request({
+        //         "method": "web3_clientVersion",
+        //         "params": []
+        //     });
+
+        //     console.log("The version is: ", version);
+        //     // Get the paragraph element with the id "metamask-version
+        //     const paragraph = document.getElementById('metamask-version');
+        //     paragraph.textContent = `The metamask version is: ${version}`;
+        // }
+
+        // async function getBalance() {
+        //     if(accounts.lenth === 0){
+        //         value.textContent = `Please connect to your wallet first!`;
+        //         return;
+        //     }
+        //     // Get the first account (you can also iterate through the array if the user has multiple accounts)
+        //     const address = accounts[0];
+
+        //     const balance = await window.ethereum.request({
+        //         "method": "eth_getBalance",
+        //         "params": [address, "latest"]
+        //     });
+
+        //     // Convert the balance from wei to ether (1 ether = 10^18 wei)
+        //     const balanceInEther = BigInt(balance) / BigInt(10 ** 18);
+        //     const value = document.getElementById('balance');
+        //     value.textContent = `Your current balance is: ${balanceInEther}`;
+        // }
+    </script>
+
+    <button id="connectButton" onclick="connect()">Connect</button>
+    <button id="getMetamaskVersion" onclick="metamaskVersion()">Get Metamask Version</button>
+    <button id="balanceBtn" onclick="getBalance()">Get Balance</button>
+    <div>
+        <p id="metamask-version"></p>
+        <p id="balance"></p>
+    </div>
+</body>
+
+</html>
