@@ -8,16 +8,7 @@
 <body>
     <h1>Web3</h1>
     <script>
-        let accounts = [];
-
-        async function connect() {
-            if (typeof window.ethereum !== "undefined") {
-                accounts = await window.ethereum.request({
-                    "method": "eth_requestAccounts",
-                    "params": []
-                });
-            }
-        }
+        
 
         // async function metamaskVersion() {
         //     const version = await window.ethereum.request({
@@ -52,12 +43,7 @@
     </script>
 
     <button id="connectButton" onclick="connect()">Connect</button>
-    <button id="getMetamaskVersion" onclick="metamaskVersion()">Get Metamask Version</button>
-    <button id="balanceBtn" onclick="getBalance()">Get Balance</button>
-    <div>
-        <p id="metamask-version"></p>
-        <p id="balance"></p>
-    </div>
+
 </body>
 
 </html>
