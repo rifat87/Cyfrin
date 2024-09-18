@@ -100,7 +100,35 @@ contract Raffle is VRFConsumerBaseV2Plus{
 
     //1. Get a random number 
     // 2. Use random number to pick a play 
-    // 3. Be automatically called
+
+    // When should the winner be picked?
+    /**
+     * @dev This is the function that the Chainlink nodes will call to see
+     * If the lottery is ready to have a winner picked.
+     * The following should be true in order for upkeepNeeded to be true:
+     * 1. The  time interval has passed between raffle runs
+     * 2. The lottery is open 
+     * 3. The contract has ETH (has players)
+     * 4. Implicityly, your subscript has LINK
+     * @param - ignored
+     * @return upkeepNeeded - true if it's time to restart the lottery
+     * @return - ignored
+     */
+
+    function checkUpkeep(bytes calldata /* checkData */) public view returns (bool upkeepNeeded, bytes memory /* performData */) {
+        // Important Note: If we use only bool in the argument then we have to return a true or false value and if we use upkeepNeeded then we doesn't have to return anything, we can simply set the upkeepNeeded value as true or false.
+        bool timeHasPassed = ((block.timestamp - s_lastTimeStamp) >= i_interval);
+
+        //special syntax
+        bool isOpen = s_raffleState == RaffleState.OPEN;
+        bool hasBalance = address(this).balance > 0;
+        bool hasPlayers = s_players.length > 0;
+
+        upkeepNeeded = timeHasPassed && isOpen && hasBalance && hasPlayers;
+
+        return (upkeepNeeded, "");
+    }
+    // 3. ** Be automatically called **
     function pickWinner() external {
         // check to see if enough time has passed using block.timestamp
 
@@ -135,6 +163,7 @@ contract Raffle is VRFConsumerBaseV2Plus{
 
     // CEI: check, Effects, Interactions Pattern
     function fulfillRandomWords(uint256 requestId, uint256[] calldata randomWords) internal override {
+        // The pattern is: Checks, Effects and Interations
         // Checks
         // requires(conditionals)
 
@@ -151,6 +180,8 @@ contract Raffle is VRFConsumerBaseV2Plus{
         s_raffleState = RaffleState.OPEN;
         s_players = new address payable[](0);
         s_lastTimeStamp = block.timestamp;
+
+        // Patterns helps to reentrance check and use events before Interations and it is 
 
         // Interattions (External Contract Interactions)
         (bool success,) = recentWinner.call{value: address(this).balance}("");
