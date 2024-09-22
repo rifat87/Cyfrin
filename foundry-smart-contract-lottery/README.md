@@ -64,3 +64,14 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+
+## Tests !
+
+
+1. Write deploy scripts
+    1. Note, these will not wor on zkSync(as of recording)
+2. Write tests
+    1. Local chain
+    2. Forked testnet
+    3. Forked mainnet

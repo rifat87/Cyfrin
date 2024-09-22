@@ -37,6 +37,7 @@ contract Raffle is VRFConsumerBaseV2Plus{
     error Raffle__SendMoreToEnterRaffle(); // it is good to give the error name and use two __ befoe the error.
     error Raffle__TransferFailed();
     error Raffle__RaffleNotOpen();
+    error Raffle__UpkeepNotNeeded(uint256 balance, uint256 playersLength, uint256 raffleState);
 
     /** Type Declarations: its a type variable */
     enum RaffleState {
@@ -57,7 +58,7 @@ contract Raffle is VRFConsumerBaseV2Plus{
     //storage variable 
     uint256 private s_lastTimeStamp;
     address private s_recentWinner;
-    RaffleState private s_raffleState;
+    RaffleState private s_raffleState; // start as open
 
     //Events
     event RaffleEntered(address indexed player);
@@ -115,7 +116,7 @@ contract Raffle is VRFConsumerBaseV2Plus{
      * @return - ignored
      */
 
-    function checkUpkeep(bytes calldata /* checkData */) public view returns (bool upkeepNeeded, bytes memory /* performData */) {
+    function checkUpkeep(bytes memory /* checkData */) public view returns (bool upkeepNeeded, bytes memory /* performData */) {
         // Important Note: If we use only bool in the argument then we have to return a true or false value and if we use upkeepNeeded then we doesn't have to return anything, we can simply set the upkeepNeeded value as true or false.
         bool timeHasPassed = ((block.timestamp - s_lastTimeStamp) >= i_interval);
 
@@ -129,12 +130,13 @@ contract Raffle is VRFConsumerBaseV2Plus{
         return (upkeepNeeded, "");
     }
     // 3. ** Be automatically called **
-    function pickWinner() external {
+    function performUpkeep(bytes calldata /*performData */ ) external {
         // check to see if enough time has passed using block.timestamp
 
         // 1000 - 900 = 100, 50
-        if (block.timestamp - s_lastTimeStamp > i_interval) {
-            revert();
+        (bool upkeepNeeded,) = checkUpkeep("");
+        if (!upkeepNeeded) {
+            revert Raffle__UpkeepNotNeeded(address(this).balance, s_players.length, uint256(s_raffleState));
         }
         s_raffleState = RaffleState.CALCULATING;
 
@@ -158,11 +160,12 @@ contract Raffle is VRFConsumerBaseV2Plus{
             }
         );
 
-        uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
+        s_vrfCoordinator.requestRandomWords(request);
+        // uint256 requestId = s_vrfCoordinator.requestRandomWords(request);
     }
 
     // CEI: check, Effects, Interactions Pattern
-    function fulfillRandomWords(uint256 requestId, uint256[] calldata randomWords) internal override {
+    function fulfillRandomWords(uint256 /*requestId*/, uint256[] calldata randomWords) internal override {
         // The pattern is: Checks, Effects and Interations
         // Checks
         // requires(conditionals)
@@ -197,5 +200,9 @@ contract Raffle is VRFConsumerBaseV2Plus{
      */
     function getEntranceFee() external view returns (uint256) {
         return i_entranceFee;
+    }
+
+    function getRaffleState() external view returns (RaffleState) {
+        return s_raffleState;
     }
 }
