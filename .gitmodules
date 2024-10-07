@@ -31,3 +31,6 @@
 [submodule "foundry-smart-contract-lottery/lib/foundry-devops"]
 	path = foundry-smart-contract-lottery/lib/foundry-devops
 	url = https://github.com/cyfrin/foundry-devops
+[submodule "ERC20CryptoCurrency/lib/forge-std"]
+	path = ERC20CryptoCurrency/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
