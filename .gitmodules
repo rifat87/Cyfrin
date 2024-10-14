@@ -40,3 +40,6 @@
 [submodule "DevelopNFTsCollection/lib/forge-std"]
 	path = DevelopNFTsCollection/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "DevelopNFTsCollection/lib/openzeppelin-contracts"]
+	path = DevelopNFTsCollection/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
