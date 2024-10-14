@@ -37,3 +37,6 @@
 [submodule "ERC20CryptoCurrency/lib/openzeppelin-contracts"]
 	path = ERC20CryptoCurrency/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "DevelopNFTsCollection/lib/forge-std"]
+	path = DevelopNFTsCollection/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
