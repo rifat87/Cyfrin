@@ -43,3 +43,6 @@
 [submodule "DevelopNFTsCollection/lib/openzeppelin-contracts"]
 	path = DevelopNFTsCollection/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "DevelopNFTsCollection/lib/foundry-devops"]
+	path = DevelopNFTsCollection/lib/foundry-devops
+	url = https://github.com/ChainAccelOrg/foundry-devops
